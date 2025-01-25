@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   width:400
                 ),
-                // First SVG at the top
                 Positioned(
                     left:40,
                     top: 0,
@@ -31,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Positioned(
                     top:
-                        160, // Position below the first SVG with a 20-pixel gap
+                        160, 
                     left: 0,
                     right: 0,
                     child: SizedBox(
@@ -40,9 +39,8 @@ class HomeScreen extends StatelessWidget {
                         'assets/images/boulder_bar_logo.png',
                       ),
                     )),
-                // Second SVG below the image
                 Positioned(
-                  top: 160 + 80, // Position below the image with a 20-pixel gap
+                  top: 160 + 80, 
                   left: 0,
                   right: 0,
                   child: SvgPicture.asset(
@@ -52,27 +50,25 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            // Add the BoulderBarLogo SVG
-            SizedBox(height: 400), // Space between buttons
+            SizedBox(height: 400), 
 
             Stack(
                 clipBehavior: Clip.none,
                 alignment: Alignment.center,
                 children: [
                   SizedBox(
-                    width: 268, // Fixed width for both buttons
+                    width: 268, 
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFC93A31), // Button color
+                        backgroundColor: Color(0xFFC93A31), 
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              30.0), // Fully rounded corners
+                              30.0), 
                         ),
                         padding:
-                            EdgeInsets.symmetric(vertical: 15), // Button size
+                            EdgeInsets.symmetric(vertical: 15), 
                       ),
                       onPressed: () {
-                        // Navigate to Find Routes Page
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -89,44 +85,42 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    right: -10, // Adjust the left position as needed
-                    top: -20, // Adjust the top position as needed
+                    right: -10, 
+                    top: -20, 
                     child: SvgPicture.asset(
                       'assets/svg/right_find_routes_hold.svg',
-                      width: 62, // Adjust the width as needed
-                      height: 72, // Adjust the height as needed
+                      width: 62, 
+                      height: 72, 
                     ),
                   ),
                   Positioned(
-                    left: -10, // Adjust the left position as needed
-                    bottom: -20, // Adjust the top position as needed
+                    left: -10, 
+                    bottom: -20, 
                     child: SvgPicture.asset(
                       'assets/svg/left_find_routes_hold.svg',
-                      width: 64, // Adjust the width as needed
-                      height: 57, // Adjust the height as needed
+                      width: 64, 
+                      height: 57, 
                     ),
                   ),
                 ]),
-            SizedBox(height: 20), // Space between buttons
-            // About Button with SVG on top left
+            SizedBox(height: 20), 
             Stack(
               clipBehavior: Clip.none,
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  width: 268, // Fixed width for both buttons
+                  width: 268, 
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFC93A31), // Button color
+                      backgroundColor: Color(0xFFC93A31), 
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
-                            30.0), // Fully rounded corners
+                            30.0), 
                       ),
                       padding:
-                          EdgeInsets.symmetric(vertical: 15), // Button size
+                          EdgeInsets.symmetric(vertical: 15), 
                     ),
                     onPressed: () {
-                      // Navigate to About Page
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => AboutPage()),
@@ -141,14 +135,13 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // SVG image positioned absolutely on the top left of the button
                 Positioned(
-                  right: -10, // Adjust the left position as needed
-                  bottom: -20, // Adjust the top position as needed
+                  right: -10, 
+                  bottom: -20, 
                   child: SvgPicture.asset(
                     'assets/svg/about_us_hold.svg',
-                    width: 56, // Adjust the width as needed
-                    height: 45, // Adjust the height as needed
+                    width: 56, 
+                    height: 45, 
                   ),
                 ),
               ],
@@ -160,7 +153,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Placeholder for Find Routes Page
 class FindRoutesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -175,7 +167,6 @@ class FindRoutesPage extends StatelessWidget {
   }
 }
 
-// Placeholder for About Page
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
