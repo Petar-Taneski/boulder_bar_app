@@ -1,3 +1,4 @@
+import 'package:boulder_bar_app/screens/routes.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -24,7 +25,7 @@ class HomeScreen extends StatelessWidget {
                   // Navigate to Find Routes Page
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FindRoutesPage()),
+                    MaterialPageRoute(builder: (context) => Routes()),
                   );
                 },
                 child: Text(
@@ -67,21 +68,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-// Placeholder for Find Routes Page
-class FindRoutesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Find Routes'),
-      ),
-      body: Center(
-        child: Text('This is the Find Routes Page'),
       ),
     );
   }
