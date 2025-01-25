@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../widgets/route_widget.dart'; // Importing RouteWidget
+import '../widgets/route_widget.dart';
+import '../data/routes_data.dart'; // Importing routes data
 
 class Routes extends StatefulWidget {
   const Routes({super.key});
@@ -10,46 +11,7 @@ class Routes extends StatefulWidget {
 }
 
 class _RoutesState extends State<Routes> {
-  // Sample data
-  final List<Map<String, dynamic>> routes = [
-    {
-      'id': '1',
-      'img': 'assets/photos/abbey_road.png',
-      'title': 'Abbey Road',
-      'difficulty': 1,
-      'completed': false,
-    },
-    {
-      'id': '2',
-      'img': 'assets/photos/highway_to_hell.png',
-      'title': 'Highway to Hell',
-      'difficulty': 2,
-      'completed': true,
-    },
-    {
-      'id': '3',
-      'img': 'assets/photos/abbey_road.png',
-      'title': 'Welcome to the Jungle',
-      'difficulty': 3,
-      'completed': false,
-    },
-    {
-      'id': '4',
-      'img': 'assets/photos/abbey_road.png',
-      'title': 'Hard Road',
-      'difficulty': 4,
-      'completed': true,
-    },
-    {
-      'id': '5',
-      'img': 'assets/photos/abbey_road.png',
-      'title': 'Iron Man',
-      'difficulty': 5,
-      'completed': false,
-    },
-  ];
-
-  String selectedDifficulty = 'Difficulty'; // Default option
+  String selectedDifficulty = 'Difficulty';
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +22,9 @@ class _RoutesState extends State<Routes> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Dropdown and list of routes logic
             Container(
               color: Colors.red,
-              width: double.infinity, 
+              width: double.infinity,
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +45,7 @@ class _RoutesState extends State<Routes> {
                         fontWeight: FontWeight.bold,
                       ),
                       underline: Container(),
-                      isExpanded: true, // Make the button expand to fill the width
+                      isExpanded: true,
                       items: <String>[
                         'Difficulty',
                         'Very easy',
@@ -118,17 +79,20 @@ class _RoutesState extends State<Routes> {
                 ],
               ),
             ),
-
-            // List of route widgets
             Column(
               children: routes
                   .where((route) =>
-                      selectedDifficulty == 'Difficulty' || 
-                      selectedDifficulty == 'Very easy' && route['difficulty'] == 1 ||
-                      selectedDifficulty == 'Easy' && route['difficulty'] == 2 ||
-                      selectedDifficulty == 'Medium' && route['difficulty'] == 3 ||
-                      selectedDifficulty == 'Hard' && route['difficulty'] == 4 ||
-                      selectedDifficulty == 'Very hard' && route['difficulty'] == 5)
+                      selectedDifficulty == 'Difficulty' ||
+                      selectedDifficulty == 'Very easy' &&
+                          route['difficulty'] == 1 ||
+                      selectedDifficulty == 'Easy' &&
+                          route['difficulty'] == 2 ||
+                      selectedDifficulty == 'Medium' &&
+                          route['difficulty'] == 3 ||
+                      selectedDifficulty == 'Hard' &&
+                          route['difficulty'] == 4 ||
+                      selectedDifficulty == 'Very hard' &&
+                          route['difficulty'] == 5)
                   .map((route) => RouteWidget(
                         id: route['id'],
                         img: route['img'],
