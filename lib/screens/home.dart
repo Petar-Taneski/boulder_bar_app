@@ -1,3 +1,4 @@
+import 'package:boulder_bar_app/screens/about_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:boulder_bar_app/screens/routes.dart';
@@ -149,20 +150,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class AboutPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('About'),
-      ),
-      body: Center(
-        child: Text('This is the About Page'),
       ),
     );
   }
