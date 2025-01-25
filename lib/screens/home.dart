@@ -1,3 +1,4 @@
+import 'package:boulder_bar_app/screens/routes.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,23 +9,20 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Find Routes Button
             SizedBox(
-              width: 268, // Fixed width for both buttons
+              width: 268,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFC93A31), // Button color
+                  backgroundColor: Color(0xFFC93A31),
                   shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(30.0), // Fully rounded corners
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 15), // Button size
+                  padding: EdgeInsets.symmetric(vertical: 15),
                 ),
                 onPressed: () {
-                  // Navigate to Find Routes Page
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FindRoutesPage()),
+                    MaterialPageRoute(builder: (context) => Routes()),
                   );
                 },
                 child: Text(
@@ -36,21 +34,18 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20), // Space between buttons
-            // About Button
+            SizedBox(height: 20),
             SizedBox(
-              width: 268, // Fixed width for both buttons
+              width: 268,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFC93A31), // Button color
+                  backgroundColor: Color(0xFFC93A31),
                   shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(30.0), // Fully rounded corners
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 15), // Button size
+                  padding: EdgeInsets.symmetric(vertical: 15),
                 ),
                 onPressed: () {
-                  // Navigate to About Page
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => AboutPage()),
@@ -67,21 +62,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-// Placeholder for Find Routes Page
-class FindRoutesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Find Routes'),
-      ),
-      body: Center(
-        child: Text('This is the Find Routes Page'),
       ),
     );
   }
