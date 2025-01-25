@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/route_widget.dart';
-import '../data/routes_data.dart'; // Importing routes data
-import 'single_route.dart'; // Import the correct SingleRoute class
+import '../data/routes_data.dart';
+import 'single_route.dart';
 
 class Routes extends StatefulWidget {
   const Routes({super.key});
@@ -23,7 +23,6 @@ class _RoutesState extends State<Routes> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Dropdown to select difficulty or saved status
             Container(
               color: Colors.red,
               width: double.infinity,
@@ -55,7 +54,7 @@ class _RoutesState extends State<Routes> {
                         'Medium',
                         'Hard',
                         'Very hard',
-                        'Saved', // Add 'Saved' option to the dropdown
+                        'Saved',
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -82,18 +81,14 @@ class _RoutesState extends State<Routes> {
                 ],
               ),
             ),
-
-            // Column to display routes based on the selected filter
             Column(
               children: routes
                   .where((route) {
-                    // Filter by difficulty or saved status
                     if (selectedDifficulty == 'Difficulty') {
-                      return true; // No filter applied
+                      return true;
                     } else if (selectedDifficulty == 'Saved') {
-                      return route['saved'] == true; // Show only saved routes
+                      return route['saved'] == true;
                     } else {
-                      // Filter by difficulty level
                       int difficulty = route['difficulty'];
                       if (selectedDifficulty == 'Very easy' &&
                           difficulty == 1) {
@@ -112,16 +107,15 @@ class _RoutesState extends State<Routes> {
                         return true;
                       }
                     }
-                    return false; // Default case, no match
+                    return false;
                   })
                   .map((route) => GestureDetector(
                         onTap: () {
-                          // Navigate to SingleRoute and pass the route id
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => SingleRoute(
-                                id: route['id'], // Pass the route id here
+                                id: route['id'],
                               ),
                             ),
                           );

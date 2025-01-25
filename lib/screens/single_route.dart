@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../data/routes_data.dart'; // Import the route data
+import '../data/routes_data.dart'; 
 
 class SingleRoute extends StatefulWidget {
   final String id;
@@ -25,7 +25,7 @@ class _SingleRouteState extends State<SingleRoute> {
         'title': 'Route Not Found',
         'difficulty': 0,
         'completed': false,
-        'saved': false, // Add 'saved' key
+        'saved': false,
       },
     );
   }
@@ -41,14 +41,13 @@ class _SingleRouteState extends State<SingleRoute> {
     });
   }
 
-  // Toggle the saved state
   void _toggleSaved() {
     setState(() {
-      routeData['saved'] = !routeData['saved']; // Toggle saved state
+      routeData['saved'] = !routeData['saved']; 
       final index = routes.indexWhere((route) => route['id'] == widget.id);
       if (index != -1) {
         routes[index]['saved'] =
-            routeData['saved']; // Update in the routes data
+            routeData['saved'];
       }
     });
   }
