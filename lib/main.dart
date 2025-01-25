@@ -1,4 +1,4 @@
-import 'package:boulder_bar_app/pages/home.dart';
+import 'package:boulder_bar_app/screens/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // define the theme as black
         colorScheme: ColorScheme.dark(),
+        primaryColor: Colors.black,
         useMaterial3: true,
       ),
       home: HomeScreen(),
