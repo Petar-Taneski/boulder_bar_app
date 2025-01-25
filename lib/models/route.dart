@@ -4,6 +4,7 @@ class Route {
   final String title;
   final int difficulty;
   final bool completed;
+  final bool saved;
 
   Route({
     required this.id,
@@ -11,5 +12,6 @@ class Route {
     required this.title,
     required this.difficulty,
     required this.completed,
+    required this.saved,
   });
 }
