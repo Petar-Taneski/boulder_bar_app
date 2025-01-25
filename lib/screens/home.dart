@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:boulder_bar_app/screens/routes.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -30,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Positioned(
                     top:
-                        160, 
+                        170, 
                     left: 0,
                     right: 0,
                     child: SizedBox(
@@ -40,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     )),
                 Positioned(
-                  top: 160 + 80, 
+                  top: 170 + 100, 
                   left: 0,
                   right: 0,
                   child: SvgPicture.asset(
@@ -50,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 400), 
+            SizedBox(height: 450), 
 
             Stack(
                 clipBehavior: Clip.none,
@@ -72,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FindRoutesPage()),
+                              builder: (context) => Routes()),
                         );
                       },
                       child: Text(
@@ -148,20 +149,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class FindRoutesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Find Routes'),
-      ),
-      body: Center(
-        child: Text('This is the Find Routes Page'),
       ),
     );
   }
