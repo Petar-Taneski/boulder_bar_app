@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../data/routes_data.dart'; 
+import '../data/routes_data.dart';
 
 class SingleRoute extends StatefulWidget {
   final String id;
@@ -43,11 +43,10 @@ class _SingleRouteState extends State<SingleRoute> {
 
   void _toggleSaved() {
     setState(() {
-      routeData['saved'] = !routeData['saved']; 
+      routeData['saved'] = !routeData['saved'];
       final index = routes.indexWhere((route) => route['id'] == widget.id);
       if (index != -1) {
-        routes[index]['saved'] =
-            routeData['saved'];
+        routes[index]['saved'] = routeData['saved'];
       }
     });
   }
@@ -159,26 +158,88 @@ class _SingleRouteState extends State<SingleRoute> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        value: routeData['completed'],
-                        activeColor: Colors.white,
-                        checkColor: Colors.red,
-                        onChanged: _toggleCompletion,
-                      ),
-                      Text(
-                        routeData['completed'] ? 'COMPLETED' : 'NOT COMPLETED',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
+                  const SizedBox(height: 14),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      if (constraints.maxWidth < 600) {
+                        return Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Checkbox(
+                                  value: routeData['completed'],
+                                  activeColor: Colors.white,
+                                  checkColor: Colors.red,
+                                  onChanged: _toggleCompletion,
+                                ),
+                                Text(
+                                  routeData['completed']
+                                      ? 'COMPLETED'
+                                      : 'NOT COMPLETED',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: ElevatedButton(
+                                onPressed: _toggleSaved,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red.shade300,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 32),
+                                ),
+                                child: Text(
+                                  routeData['saved']
+                                      ? 'UNSAVE ROUTE'
+                                      : 'SAVE ROUTE',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Flexible(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Checkbox(
+                                    value: routeData['completed'],
+                                    activeColor: Colors.white,
+                                    checkColor: Colors.red,
+                                    onChanged: _toggleCompletion,
+                                  ),
+                                  Text(
+                                    routeData['completed']
+                                        ? 'COMPLETED'
+                                        : 'NOT COMPLETED',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    },
                   ),
-                  const SizedBox(height: 16),
                 ],
               ),
             ),
