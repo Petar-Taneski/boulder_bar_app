@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/route_widget.dart';
-import '../data/routes_data.dart'; // Importing routes data
+import '../data/routes_data.dart';
+import 'single_route.dart';
 
 class Routes extends StatefulWidget {
   const Routes({super.key});
@@ -52,7 +53,8 @@ class _RoutesState extends State<Routes> {
                         'Easy',
                         'Medium',
                         'Hard',
-                        'Very hard'
+                        'Very hard',
+                        'Saved',
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -81,24 +83,50 @@ class _RoutesState extends State<Routes> {
             ),
             Column(
               children: routes
-                  .where((route) =>
-                      selectedDifficulty == 'Difficulty' ||
-                      selectedDifficulty == 'Very easy' &&
-                          route['difficulty'] == 1 ||
-                      selectedDifficulty == 'Easy' &&
-                          route['difficulty'] == 2 ||
-                      selectedDifficulty == 'Medium' &&
-                          route['difficulty'] == 3 ||
-                      selectedDifficulty == 'Hard' &&
-                          route['difficulty'] == 4 ||
-                      selectedDifficulty == 'Very hard' &&
-                          route['difficulty'] == 5)
-                  .map((route) => RouteWidget(
-                        id: route['id'],
-                        img: route['img'],
-                        title: route['title'],
-                        difficulty: route['difficulty'],
-                        completed: route['completed'],
+                  .where((route) {
+                    if (selectedDifficulty == 'Difficulty') {
+                      return true;
+                    } else if (selectedDifficulty == 'Saved') {
+                      return route['saved'] == true;
+                    } else {
+                      int difficulty = route['difficulty'];
+                      if (selectedDifficulty == 'Very easy' &&
+                          difficulty == 1) {
+                        return true;
+                      } else if (selectedDifficulty == 'Easy' &&
+                          difficulty == 2) {
+                        return true;
+                      } else if (selectedDifficulty == 'Medium' &&
+                          difficulty == 3) {
+                        return true;
+                      } else if (selectedDifficulty == 'Hard' &&
+                          difficulty == 4) {
+                        return true;
+                      } else if (selectedDifficulty == 'Very hard' &&
+                          difficulty == 5) {
+                        return true;
+                      }
+                    }
+                    return false;
+                  })
+                  .map((route) => GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SingleRoute(
+                                id: route['id'],
+                              ),
+                            ),
+                          );
+                        },
+                        child: RouteWidget(
+                          id: route['id'],
+                          img: route['img'],
+                          title: route['title'],
+                          difficulty: route['difficulty'],
+                          completed: route['completed'],
+                        ),
                       ))
                   .toList(),
             ),

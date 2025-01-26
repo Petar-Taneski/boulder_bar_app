@@ -5,6 +5,7 @@ final List<Map<String, dynamic>> routes = [
     'title': 'Abbey Road',
     'difficulty': 1,
     'completed': false,
+    'saved': false,
   },
   {
     'id': '2',
@@ -12,6 +13,7 @@ final List<Map<String, dynamic>> routes = [
     'title': 'Highway to Hell',
     'difficulty': 2,
     'completed': true,
+    'saved': false,
   },
   {
     'id': '3',
@@ -19,6 +21,7 @@ final List<Map<String, dynamic>> routes = [
     'title': 'Welcome to the Jungle',
     'difficulty': 3,
     'completed': false,
+    'saved': false,
   },
   {
     'id': '4',
@@ -26,6 +29,7 @@ final List<Map<String, dynamic>> routes = [
     'title': 'Hard Road',
     'difficulty': 4,
     'completed': true,
+    'saved': false,
   },
   {
     'id': '5',
@@ -33,5 +37,6 @@ final List<Map<String, dynamic>> routes = [
     'title': 'Iron Man',
     'difficulty': 5,
     'completed': false,
+    'saved': false,
   },
 ];
