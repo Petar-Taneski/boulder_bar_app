@@ -1,0 +1,176 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1717458443a72b6558": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_ej4CCC": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC05861_-_Copie_9faf4a94-6d2a-4ff7-9cde-7ae8ad56adad.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "Meet our watches",
+            "heading_size": "h1",
+            "subheading": "Ready-made for you to unwind and enjoy!",
+            "button_label": "Shop now",
+            "link": "shopify://collections/watches",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "bottom-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-3"
+          }
+        },
+        "slide-0": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/NKN_2321_f230a769-1288-44b1-8a3f-59878a7dc980.jpg",
+            "image_overlay_opacity": 10,
+            "heading": "Browse our latest products",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "Shop all",
+            "link": "shopify://collections/all",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "bottom-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-3"
+          }
+        },
+        "slide_zDbGhe": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/NKN_2323_c8a31235-75b0-44eb-b61e-1ba0143a63cf.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "Discover our dials",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "Shop now",
+            "link": "shopify://collections/watch-dials",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "bottom-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-3"
+          }
+        },
+        "slide_JJpycb": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/NKN_2312_693283f8-0ea3-4700-9684-2e41b473ef84.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "Explore our limited editions",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "Shop now",
+            "link": "shopify://collections/dial-limited-edition",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "bottom-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-3"
+          }
+        },
+        "slide_NPbHJB": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2025-03-27_at_14.27.47_-_Copie.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "Experience our cases",
+            "heading_size": "h1",
+            "subheading": "The first-ever 34mm case for Seiko mods and the first VH31-ready case, only available here!",
+            "button_label": "Shop now",
+            "link": "shopify://collections/watch-case",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "bottom-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-3"
+          }
+        }
+      },
+      "block_order": [
+        "slide_ej4CCC",
+        "slide-0",
+        "slide_zDbGhe",
+        "slide_JJpycb",
+        "slide_NPbHJB"
+      ],
+      "custom_css": [],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "slider_visual": "dots",
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "image_behavior": "ambient",
+        "show_text_below": false,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "our-craftsmanship-0": {
+      "type": "our-craftsmanship",
+      "settings": {
+        "heading": "Our craftsmanship",
+        "quote": "<p>Our passion is to help watch enthusiasts bring their unique creations to life with our selection of watch parts.</p>",
+        "glass": true,
+        "full_width": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "featured-collection-0": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "summer-2025",
+        "products_to_show": 4,
+        "title": "Our Summer 2025 collection is here!",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": true,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "1717458443a72b6558",
+    "slideshow",
+    "our-craftsmanship-0",
+    "featured-collection-0"
+  ]
+}
