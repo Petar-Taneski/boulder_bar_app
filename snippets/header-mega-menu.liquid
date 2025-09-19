@@ -35,16 +35,7 @@
                   class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
                   role="list"
                 >
-                  {%- assign link_title_down = link.title | downcase | strip -%}
-                  {%- assign is_watch_parts = false -%}
-                  {%- if link_title_down == 'watch parts' -%}
-                    {%- assign is_watch_parts = true -%}
-                  {%- endif -%}
-                  {%- assign rendered_count = 0 -%}
                   {%- for childlink in link.links -%}
-                    {%- if is_watch_parts and rendered_count >= 5 -%}
-                      {%- continue -%}
-                    {%- endif -%}
                     <li>
                       <a
                         id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
@@ -56,7 +47,7 @@
                       >
                         {{ childlink.title | escape }}
                       </a>
-                      {%- if childlink.links != blank and not is_watch_parts -%}
+                      {%- if childlink.links != blank -%}
                         <ul class="list-unstyled" role="list">
                           {%- for grandchildlink in childlink.links -%}
                             <li>
@@ -74,19 +65,8 @@
                           {%- endfor -%}
                         </ul>
                       {%- endif -%}
-                      {%- assign rendered_count = rendered_count | plus: 1 -%}
                     </li>
                   {%- endfor -%}
-                  {%- if is_watch_parts and link.url != blank -%}
-                    <li>
-                      <a
-                        href="{{ link.url }}"
-                        class="mega-menu__link link"
-                      >
-                        View all {{ link.title | escape }}
-                      </a>
-                    </li>
-                  {%- endif -%}
                 </ul>
               </div>
             </details>
