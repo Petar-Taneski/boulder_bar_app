@@ -32,16 +32,7 @@
                 role="list"
                 tabindex="-1"
               >
-                {%- assign link_title_down = link.title | downcase | strip -%}
-                {%- assign is_watch_parts = false -%}
-                {%- if link_title_down == 'watch parts' -%}
-                  {%- assign is_watch_parts = true -%}
-                {%- endif -%}
-                {%- assign rendered_count = 0 -%}
                 {%- for childlink in link.links -%}
-                  {%- if is_watch_parts and rendered_count >= 5 -%}
-                    {%- continue -%}
-                  {%- endif -%}
                   <li>
                     {%- if childlink.links == blank -%}
                       <a
@@ -54,60 +45,38 @@
                       >
                         {{ childlink.title | escape }}
                       </a>
-                      {%- assign rendered_count = rendered_count | plus: 1 -%}
                     {%- else -%}
-                      {%- if is_watch_parts -%}
-                        <a
+                      <details id="Details-HeaderSubMenu-{{ link.handle }}-{{ childlink.handle }}">
+                        <summary
                           id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
-                          href="{{ childlink.url }}"
-                          class="header__menu-item list-menu__item link link--text focus-inset caption-large"
+                          class="header__menu-item link link--text list-menu__item focus-inset caption-large"
                         >
-                          {{ childlink.title | escape }}
-                        </a>
-                        {%- assign rendered_count = rendered_count | plus: 1 -%}
-                      {%- else -%}
-                        <details id="Details-HeaderSubMenu-{{ link.handle }}-{{ childlink.handle }}">
-                          <summary
-                            id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
-                            class="header__menu-item link link--text list-menu__item focus-inset caption-large"
-                          >
-                            <span>{{ childlink.title | escape }}</span>
-                            {{- 'icon-caret.svg' | inline_asset_content -}}
-                          </summary>
-                          <ul
-                            id="HeaderMenu-SubMenuList-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                            class="header__submenu list-menu motion-reduce"
-                          >
-                            {%- for grandchildlink in childlink.links -%}
-                              <li>
-                                <a
-                                  id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                  href="{{ grandchildlink.url }}"
-                                  class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %}"
-                                  {% if grandchildlink.current %}
-                                    aria-current="page"
-                                  {% endif %}
-                                >
-                                  {{ grandchildlink.title | escape }}
-                                </a>
-                              </li>
-                            {%- endfor -%}
-                          </ul>
-                        </details>
-                      {%- endif -%}
+                          <span>{{ childlink.title | escape }}</span>
+                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                        </summary>
+                        <ul
+                          id="HeaderMenu-SubMenuList-{{ link.handle }}-{{ childlink.handle }}"
+                          class="header__submenu list-menu motion-reduce"
+                        >
+                          {%- for grandchildlink in childlink.links -%}
+                            <li>
+                              <a
+                                id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                href="{{ grandchildlink.url }}"
+                                class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %}"
+                                {% if grandchildlink.current %}
+                                  aria-current="page"
+                                {% endif %}
+                              >
+                                {{ grandchildlink.title | escape }}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </details>
                     {%- endif -%}
                   </li>
                 {%- endfor -%}
-                {%- if is_watch_parts and link.url != blank -%}
-                  <li>
-                    <a
-                      href="{{ link.url }}"
-                      class="header__menu-item list-menu__item link link--text focus-inset caption-large"
-                    >
-                      View all {{ link.title | escape }}
-                    </a>
-                  </li>
-                {%- endif -%}
               </ul>
             </details>
           </header-menu>
