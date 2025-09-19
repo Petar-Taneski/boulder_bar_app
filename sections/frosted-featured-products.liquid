@@ -1,0 +1,924 @@
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign glass_color = section.settings.glass_color | default: '#ffffff'
+  assign glass_rgb = glass_color | color_to_rgb
+  assign border_color = section.settings.border_color | default: glass_color
+  assign border_rgb = border_color | color_to_rgb
+  assign glass_opacity = section.settings.glass_opacity | times: 0.01
+  assign highlight_opacity = glass_opacity | plus: 0.12
+  if highlight_opacity > 1
+    assign highlight_opacity = 1
+  endif
+  assign border_opacity = section.settings.border_opacity | times: 0.01
+  assign shadow_opacity = section.settings.shadow_strength | times: 0.01
+  assign active_scale = section.settings.active_scale | divided_by: 100.0
+  assign near_scale = section.settings.near_scale | divided_by: 100.0
+  assign rest_scale = section.settings.rest_scale | divided_by: 100.0
+  assign padding_top_mobile = section.settings.padding_top | times: 0.75 | round: 0
+  assign padding_bottom_mobile = section.settings.padding_bottom | times: 0.75 | round: 0
+%}
+
+{% style %}
+  #FrostedFeaturedProducts-{{ section.id }} {
+    --frosted-card-color: {{ glass_rgb }};
+    --frosted-card-opacity: {{ glass_opacity }};
+    --frosted-card-highlight-opacity: {{ highlight_opacity }};
+    --frosted-card-blur: {{ section.settings.card_blur }}px;
+    --frosted-card-border-color: {{ border_rgb }};
+    --frosted-card-border-opacity: {{ border_opacity }};
+    --frosted-card-shadow-opacity: {{ shadow_opacity }};
+    --frosted-card-radius: {{ section.settings.card_radius }}px;
+    --frosted-card-base-width: {{ section.settings.card_base_width }}px;
+    --frosted-card-min-height: {{ section.settings.card_min_height }}px;
+    --frosted-card-gap: {{ section.settings.card_gap }}px;
+    --frosted-card-active-scale: {{ active_scale }};
+    --frosted-card-near-scale: {{ near_scale }};
+    --frosted-card-rest-scale: {{ rest_scale }};
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }}.section-{{ section.id }}-padding {
+    padding-top: {{ padding_top_mobile }}px;
+    padding-bottom: {{ padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #FrostedFeaturedProducts-{{ section.id }}.section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} {
+    position: relative;
+    background: none;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__inner {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 4vw, 3.2rem);
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__header {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 2vw, 1.6rem);
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__heading {
+    margin: 0;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__heading.align-center {
+    text-align: center;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__heading.align-right {
+    text-align: right;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__header-text {
+    max-width: min(68rem, 100%);
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__header-text.align-center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__header-text.align-right {
+    text-align: right;
+    margin-left: auto;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__carousel {
+    position: relative;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__slides {
+    list-style: none;
+    margin: 0;
+    padding: 0 calc(var(--frosted-card-gap) * 0.5) 3rem;
+    display: flex;
+    gap: var(--frosted-card-gap);
+    align-items: stretch;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__slide {
+    flex: 0 0 var(--frosted-card-base-width);
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    transition: transform 320ms ease, opacity 320ms ease, filter 320ms ease;
+    transform: scale(var(--frosted-card-rest-scale));
+    opacity: 0.55;
+    scroll-snap-align: center;
+    transform-origin: center center;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__slide.is-near {
+    transform: scale(var(--frosted-card-near-scale));
+    opacity: 0.85;
+    z-index: 2;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__slide.is-active {
+    transform: scale(var(--frosted-card-active-scale));
+    opacity: 1;
+    z-index: 3;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.2rem, 2vw, 2rem);
+    width: 100%;
+    min-height: var(--frosted-card-min-height);
+    padding: clamp(1.8rem, 3vw, 2.8rem);
+    border-radius: var(--frosted-card-radius);
+    background: linear-gradient(
+      155deg,
+      rgba(var(--frosted-card-color), var(--frosted-card-highlight-opacity)) 0%,
+      rgba(var(--frosted-card-color), var(--frosted-card-opacity)) 100%
+    );
+    border: 1px solid rgba(var(--frosted-card-border-color), var(--frosted-card-border-opacity));
+    -webkit-backdrop-filter: blur(var(--frosted-card-blur));
+    backdrop-filter: blur(var(--frosted-card-blur));
+    box-shadow: 0 3.2rem 5.6rem rgba(var(--color-foreground), var(--frosted-card-shadow-opacity));
+    overflow: hidden;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(200deg, rgba(255, 255, 255, 0.36) 0%, rgba(255, 255, 255, 0) 48%);
+    mix-blend-mode: screen;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__media {
+    position: relative;
+    width: 100%;
+    border-radius: calc(var(--frosted-card-radius) * 0.75);
+    overflow: hidden;
+    background: rgba(var(--color-foreground), 0.08);
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__image,
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__media svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__media svg {
+    fill: rgba(var(--color-foreground), 0.14);
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__eyebrow {
+    font-size: 1.2rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(var(--color-foreground), 0.72);
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__title {
+    margin: 0;
+    font-size: clamp(1.8rem, 2vw, 2.4rem);
+    letter-spacing: 0.01em;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__title a:hover {
+    text-decoration: underline;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__vendor {
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(var(--color-foreground), 0.6);
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__description {
+    color: rgba(var(--color-foreground), 0.8);
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__price {
+    font-size: 1.5rem;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__footer {
+    margin-top: auto;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__cta {
+    min-width: 0;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__cta.button--full-width {
+    width: 100%;
+    justify-content: center;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .slider-buttons {
+    position: absolute;
+    top: 50%;
+    left: clamp(1.5rem, 6vw, 4rem);
+    right: clamp(1.5rem, 6vw, 4rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .slider-buttons .slider-button {
+    pointer-events: auto;
+  }
+
+  #FrostedFeaturedProducts-{{ section.id }} .slider-counter {
+    pointer-events: auto;
+  }
+
+  @media screen and (max-width: 989px) {
+    #FrostedFeaturedProducts-{{ section.id }} .slider-buttons {
+      position: static;
+      margin-top: 1.2rem;
+      transform: none;
+      justify-content: center;
+      gap: 1.6rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__slides {
+      padding-bottom: 2.4rem;
+    }
+
+    #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__slide {
+      flex-basis: clamp(72vw, 78vw, 82vw);
+    }
+
+    #FrostedFeaturedProducts-{{ section.id }} .frosted-featured-products__card {
+      min-height: calc(var(--frosted-card-min-height) * 0.9);
+    }
+  }
+{% endstyle %}
+
+{%- liquid
+  assign heading_alignment = section.settings.text_alignment
+  assign inner_class = ''
+  unless section.settings.full_width
+    assign inner_class = ' page-width'
+  endunless
+  assign slider_classes = ' slider-mobile-gutter slider-component-desktop'
+  if section.settings.full_width
+    assign slider_classes = slider_classes | append: ' slider-component-full-width'
+  else
+    assign slider_classes = slider_classes | append: ' page-width'
+  endif
+  if settings.animations_reveal_on_scroll
+    assign slider_classes = slider_classes | append: ' scroll-trigger animate--slide-in'
+  endif
+  assign has_blocks = section.blocks.size > 0
+  assign show_navigation = section.blocks.size > 1
+-%}
+
+<section
+  id="FrostedFeaturedProducts-{{ section.id }}"
+  class="section frosted-featured-products section-{{ section.id }}-padding"
+  data-section-id="{{ section.id }}"
+>
+  <div class="frosted-featured-products__inner{{ inner_class }}">
+    {% if section.settings.heading != blank %}
+      <div class="frosted-featured-products__header">
+        <{{ section.settings.heading_size }} class="frosted-featured-products__heading {{ section.settings.heading_size }} align-{{ heading_alignment }}">
+          {{ section.settings.heading | escape }}
+        </{{ section.settings.heading_size }}>
+        {% if section.settings.subheading != blank %}
+          <div class="frosted-featured-products__header-text rte align-{{ heading_alignment }}">
+            {{ section.settings.subheading }}
+          </div>
+        {% endif %}
+      </div>
+    {% elsif section.settings.subheading != blank %}
+      <div class="frosted-featured-products__header">
+        <div class="frosted-featured-products__header-text rte align-{{ heading_alignment }}">
+          {{ section.settings.subheading }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if has_blocks %}
+    <slider-component class="frosted-featured-products__carousel{{ slider_classes }}">
+      <ul
+        id="Slider-{{ section.id }}"
+        data-id="{{ section.id }}"
+        class="frosted-featured-products__slides slider slider--everywhere"
+        role="list"
+        aria-label="{{ section.settings.heading | default: 'Featured products' | escape }}"
+      >
+        {% for block in section.blocks %}
+          {% liquid
+            assign product = block.settings.product
+            assign aspect_ratio = 1
+            if section.settings.image_ratio == 'adapt' and product and product.featured_media and product.featured_media.aspect_ratio > 0
+              assign aspect_ratio = product.featured_media.aspect_ratio
+            elsif section.settings.image_ratio == 'portrait'
+              assign aspect_ratio = 0.75
+            elsif section.settings.image_ratio == 'landscape'
+              assign aspect_ratio = 1.45
+            endif
+            assign cta_label = block.settings.button_label | default: section.settings.button_label
+            assign cta_link = block.settings.button_link
+            if cta_link == blank and product
+              assign cta_link = product.url
+            endif
+          %}
+          <li
+            id="Slide-{{ section.id }}-{{ forloop.index }}"
+            class="frosted-featured-products__slide slider__slide"
+            data-aspect-ratio="{{ aspect_ratio }}"
+            data-block-id="{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            <article class="frosted-featured-products__card">
+              <div class="frosted-featured-products__media" style="aspect-ratio: {{ aspect_ratio }};">
+                {% if product and product != empty and product.featured_media %}
+                  {{ product.featured_media | image_url: width: 1200 | image_tag:
+                    loading: 'lazy',
+                    sizes: '(min-width: 1200px) 360px, (min-width: 750px) 40vw, 80vw',
+                    widths: '360, 533, 720, 940, 1200',
+                    alt: product.featured_media.alt | escape,
+                    class: 'frosted-featured-products__image'
+                  }}
+                {% else %}
+                  {{ 'product-apparel-2' | placeholder_svg_tag: 'frosted-featured-products__image placeholder' }}
+                {% endif %}
+              </div>
+              <div class="frosted-featured-products__body">
+                {% if block.settings.eyebrow != blank %}
+                  <p class="frosted-featured-products__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+                {% endif %}
+
+                <h3 class="frosted-featured-products__title">
+                  {% if product and product != empty %}
+                    <a href="{{ product.url }}">{{ product.title | escape }}</a>
+                  {% else %}
+                    {{ 'onboarding.product_title' | t }}
+                  {% endif %}
+                </h3>
+
+                {% if section.settings.show_vendor and product and product.vendor != blank %}
+                  <p class="frosted-featured-products__vendor">{{ product.vendor | escape }}</p>
+                {% endif %}
+
+                {% if block.settings.description != blank %}
+                  <div class="frosted-featured-products__description rte">{{ block.settings.description }}</div>
+                {% endif %}
+
+                {% if section.settings.show_price %}
+                  {% if product and product != empty %}
+                    {% render 'price', product: product, price_class: 'frosted-featured-products__price', show_compare_at_price: true %}
+                  {% else %}
+                    {% render 'price', placeholder: true, price_class: 'frosted-featured-products__price' %}
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if cta_label != blank and cta_link != blank %}
+                <div class="frosted-featured-products__footer">
+                  <a
+                    class="frosted-featured-products__cta {{ section.settings.button_style }}"
+                    href="{{ cta_link }}"
+                  >
+                    {{ cta_label | escape }}
+                  </a>
+                </div>
+              {% endif %}
+            </article>
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% if show_navigation %}
+        <div class="slider-buttons">
+          <button
+            type="button"
+            class="slider-button slider-button--prev"
+            name="previous"
+            aria-label="{{ 'general.slider.previous_slide' | t }}"
+            aria-controls="Slider-{{ section.id }}"
+          >
+            <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+          </button>
+          <div class="slider-counter caption">
+            <span class="slider-counter--current">1</span>
+            <span aria-hidden="true"> / </span>
+            <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+            <span class="slider-counter--total">{{ section.blocks.size }}</span>
+          </div>
+          <button
+            type="button"
+            class="slider-button slider-button--next"
+            name="next"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+            aria-controls="Slider-{{ section.id }}"
+          >
+            <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+          </button>
+        </div>
+      {% endif %}
+    </slider-component>
+  {% else %}
+    <div class="frosted-featured-products__inner{{ inner_class }}">
+      <p>Add product blocks to populate this carousel.</p>
+    </div>
+  {% endif %}
+</section>
+
+<script>
+  (function () {
+    function initFrostedFeaturedProducts(root) {
+      if (!root || root.dataset.frostedInitialized === 'true') {
+        if (root && typeof root.frostedUpdate === 'function') {
+          root.frostedUpdate();
+        }
+        return;
+      }
+      const sliderComponent = root.querySelector('slider-component');
+      const slider = root.querySelector('.frosted-featured-products__slides');
+      if (!slider) return;
+
+      const slides = Array.from(slider.querySelectorAll('.frosted-featured-products__slide'));
+      if (!slides.length) return;
+
+      root.dataset.frostedInitialized = 'true';
+
+      const updateActiveSlide = () => {
+        const sliderCenter = slider.scrollLeft + slider.clientWidth / 2;
+        let closestSlide = slides[0];
+        let smallestDistance = Number.POSITIVE_INFINITY;
+
+        slides.forEach((slide) => {
+          const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+          const distance = Math.abs(slideCenter - sliderCenter);
+          if (distance < smallestDistance) {
+            smallestDistance = distance;
+            closestSlide = slide;
+          }
+        });
+
+        slides.forEach((slide) => {
+          slide.classList.remove('is-active', 'is-near');
+        });
+
+        if (!closestSlide) return;
+
+        closestSlide.classList.add('is-active');
+        const index = slides.indexOf(closestSlide);
+        if (slides[index - 1]) {
+          slides[index - 1].classList.add('is-near');
+        }
+        if (slides[index + 1]) {
+          slides[index + 1].classList.add('is-near');
+        }
+      };
+
+      let rafId;
+      const requestUpdate = () => {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+          updateActiveSlide();
+        });
+      };
+
+      slider.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate);
+
+      if (sliderComponent) {
+        sliderComponent.addEventListener('slideChanged', requestUpdate);
+      }
+
+      const wheelHandler = (event) => {
+        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+        event.preventDefault();
+        slider.scrollBy({ left: event.deltaY, behavior: 'smooth' });
+      };
+
+      slider.addEventListener('wheel', wheelHandler, { passive: false });
+
+      root.frostedUpdate = requestUpdate;
+      root.frostedCleanup = () => {
+        slider.removeEventListener('scroll', requestUpdate);
+        window.removeEventListener('resize', requestUpdate);
+        if (sliderComponent) {
+          sliderComponent.removeEventListener('slideChanged', requestUpdate);
+        }
+        slider.removeEventListener('wheel', wheelHandler);
+        delete root.frostedUpdate;
+        delete root.frostedCleanup;
+      };
+      requestUpdate();
+    }
+
+    const sectionRoot = document.getElementById('FrostedFeaturedProducts-{{ section.id }}');
+    initFrostedFeaturedProducts(sectionRoot);
+
+    document.addEventListener('shopify:section:load', function (event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        initFrostedFeaturedProducts(event.target);
+      }
+    });
+
+    document.addEventListener('shopify:section:reorder', function (event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        const target = document.getElementById('FrostedFeaturedProducts-{{ section.id }}');
+        if (target) {
+          if (typeof target.frostedCleanup === 'function') {
+            target.frostedCleanup();
+          }
+          target.dataset.frostedInitialized = 'false';
+          initFrostedFeaturedProducts(target);
+        }
+      }
+    });
+
+    document.addEventListener('shopify:section:unload', function (event) {
+      if (event.detail.sectionId === '{{ section.id }}' && typeof event.target.frostedCleanup === 'function') {
+        event.target.frostedCleanup();
+      }
+    });
+
+    document.addEventListener('shopify:block:select', function (event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        const target = document.getElementById('FrostedFeaturedProducts-{{ section.id }}');
+        if (!target) return;
+        const slider = target.querySelector('.frosted-featured-products__slides');
+        const slide = target.querySelector('[data-block-id="' + event.detail.blockId + '"]');
+        if (slider && slide) {
+          slide.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          if (typeof target.frostedUpdate === 'function') {
+            setTimeout(() => target.frostedUpdate(), 240);
+          }
+        }
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Frosted Featured Products",
+  "tag": "section",
+  "class": "section frosted-featured-products-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frosted featured products"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Spotlight a curated assortment with a floating carousel of frosted glass cards.</p>"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Extra large"
+        },
+        {
+          "value": "h2",
+          "label": "Large"
+        },
+        {
+          "value": "h3",
+          "label": "Medium"
+        },
+        {
+          "value": "h4",
+          "label": "Small"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Heading alignment",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Enable full width",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Media aspect ratio",
+      "default": "square",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "card_base_width",
+      "label": "Card width",
+      "min": 240,
+      "max": 420,
+      "step": 10,
+      "unit": "px",
+      "default": 320
+    },
+    {
+      "type": "range",
+      "id": "card_min_height",
+      "label": "Card minimum height",
+      "min": 280,
+      "max": 520,
+      "step": 20,
+      "unit": "px",
+      "default": 380
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card spacing",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card corner radius",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "glass_color",
+      "label": "Glass color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "glass_opacity",
+      "label": "Glass opacity",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "card_blur",
+      "label": "Glass blur",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Glass border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "border_opacity",
+      "label": "Glass border opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "shadow_strength",
+      "label": "Shadow strength",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "%",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "active_scale",
+      "label": "Active card scale",
+      "min": 105,
+      "max": 130,
+      "step": 1,
+      "unit": "%",
+      "default": 118
+    },
+    {
+      "type": "range",
+      "id": "near_scale",
+      "label": "Neighbor card scale",
+      "min": 90,
+      "max": 110,
+      "step": 1,
+      "unit": "%",
+      "default": 98
+    },
+    {
+      "type": "range",
+      "id": "rest_scale",
+      "label": "Resting card scale",
+      "min": 70,
+      "max": 95,
+      "step": 1,
+      "unit": "%",
+      "default": 88
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "default": "button button--tertiary",
+      "options": [
+        {
+          "value": "button",
+          "label": "Primary"
+        },
+        {
+          "value": "button button--secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "button button--tertiary",
+          "label": "Outline"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Default button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow text"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Frosted Featured Products",
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+{% endjavascript %}
