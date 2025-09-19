@@ -128,16 +128,6 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
-    "our-craftsmanship-0": {
-      "type": "our-craftsmanship",
-      "settings": {
-        "heading": "Our craftsmanship",
-        "quote": "<p>Our passion is to help watch enthusiasts bring their unique creations to life with our selection of watch parts.</p>",
-        "glass": true,
-        "full_width": true,
-        "color_scheme": "scheme-1"
-      }
-    },
     "featured-collection-0": {
       "type": "featured-collection",
       "settings": {
@@ -167,10 +157,5 @@
       }
     }
   },
-  "order": [
-    "1717458443a72b6558",
-    "slideshow",
-    "our-craftsmanship-0",
-    "featured-collection-0"
-  ]
+  "order": ["1717458443a72b6558", "slideshow", "featured-collection-0"]
 }
